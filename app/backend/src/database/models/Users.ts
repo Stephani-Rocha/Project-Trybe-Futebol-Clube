@@ -2,11 +2,11 @@ import { Model, INTEGER, STRING} from 'sequelize';
 import db from '.';
 
 class Users extends Model {
-    id: number;
-    username: string;
-    role: string;
-    email: string;
-    password: string;
+    id!: number;
+    username!: string;
+    role!: string;
+    email!: string;
+    password!: string;
 }
 
 Users.init({
@@ -33,6 +33,7 @@ Users.init({
         allowNull: false,
     }
 }, {
+    underscored: true,
     sequelize: db,
     modelName: 'users',
     timestamps: false,
