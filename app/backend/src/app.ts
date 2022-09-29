@@ -1,9 +1,11 @@
 import * as express from 'express';
 import LoginController from './controller/LoginController';
 import LoginService from './service/LoginService'
+import LoginValidate from './middleware/LoginValidate'
 
 const loginService = new LoginService;
 const loginController = new LoginController(loginService);
+const loginValidate = new LoginValidate;
 class App {
   public app: express.Express;
 
@@ -14,7 +16,7 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
-    this.app.post('/login',loginController.login)
+    this.app.post('/login', loginValidate.emailValidation, loginController.login)
   }
 
   private config():void {
