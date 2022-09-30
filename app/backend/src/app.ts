@@ -18,6 +18,8 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.post('/login', loginValidate.emailValidation,
     loginValidate.incorrectEmail, loginValidate.incorrectPassowrd ,loginController.login)
+
+    this.app.get('/login/validate', loginController.roleValidation)
   }
 
   private config():void {
