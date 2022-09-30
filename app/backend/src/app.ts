@@ -25,6 +25,7 @@ class App {
 
     this.app.get('/login/validate', loginController.roleValidation)
     this.app.get('/teams', teamsController.getController)
+    this.app.get('/teams/:id', teamsController.getById)
   }
 
   private config():void {
