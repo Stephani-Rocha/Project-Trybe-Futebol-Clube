@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-
 class LoginValidate {
 
     public emailValidation = (req: Request, res: Response, next: NextFunction) => {
@@ -7,6 +6,26 @@ class LoginValidate {
 
         if(!email || !password) {
             return res.status(400).json({ message: 'All fields must be filled'});
+        }
+        next();
+    }
+
+    public incorrectEmail = (req: Request, res: Response, next: NextFunction) => {
+        const { email } = req.body;
+
+        const emailVerify = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailVerify.test(email)) {
+            return res.status(401).json({ message: 'Incorrect email or password' });
+        }
+        next();
+    }
+
+    public incorrectPassowrd = (req: Request, res: Response, next: NextFunction) => {
+        const { password } = req.body;
+
+        if (password.length < 6) {
+            return res.status(401).json({ message: 'Incorrect email or password' })
         }
         next();
     }

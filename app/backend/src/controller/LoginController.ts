@@ -7,6 +7,9 @@ class LoginController {
     login = async (req: Request, res: Response): Promise<Response> => {
         const { email, password } = req.body;
         const result = await this.loginService.login(email, password);
+        if (!result) {
+            return res.status(401).json({ message: 'Incorrect email or password'})
+        }
         return res.status(200).json({ token: result });
     }
 }

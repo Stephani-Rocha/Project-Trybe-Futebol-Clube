@@ -16,7 +16,8 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
-    this.app.post('/login', loginValidate.emailValidation, loginController.login)
+    this.app.post('/login', loginValidate.emailValidation,
+    loginValidate.incorrectEmail, loginValidate.incorrectPassowrd ,loginController.login)
   }
 
   private config():void {
