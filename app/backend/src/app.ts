@@ -4,12 +4,16 @@ import LoginService from './service/LoginService'
 import LoginValidate from './middleware/LoginValidate'
 import TeamsController from './controller/TeamsController';
 import TeamsService from './service/TeamsService';
+import MatchesService from './service/MatchesService';
+import MatchesController from './controller/MatchesController';
 
 const loginService = new LoginService;
 const loginController = new LoginController(loginService);
 const loginValidate = new LoginValidate;
 const teamsService = new TeamsService;
 const teamsController = new TeamsController(teamsService);
+const matchesService = new MatchesService;
+const matchesController = new MatchesController(matchesService);
 class App {
   public app: express.Express;
 
@@ -26,6 +30,7 @@ class App {
     this.app.get('/login/validate', loginController.roleValidation)
     this.app.get('/teams', teamsController.getController)
     this.app.get('/teams/:id', teamsController.getById)
+    this.app.get('/matches', matchesController.getMatches)
   }
 
   private config():void {

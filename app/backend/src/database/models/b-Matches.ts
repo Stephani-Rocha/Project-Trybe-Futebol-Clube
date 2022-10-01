@@ -4,12 +4,11 @@ import Teams from './a-Teams';
 
 class Matches extends Model {
     id!: number;
-    home_team!: number;
-    home_team_goals!: number;
-    away_team!: number;
-    away_team_goals!: number;
-    in_progress!: number;
-    static associate: (models: any) => void;
+    homeTeam!: number;
+    homeTeamGoals!: number;
+    awayTeam!: number;
+    awayTeamGoals!: number;
+    inProgress!: number;
 }
 
 Matches.init({
@@ -19,33 +18,26 @@ Matches.init({
         primaryKey: true,
         autoIncrement: true
     },
-    home_team: {
-        type: INTEGER,
-        allowNull: false,
-        references: {
-            model: 'teams',
-            key: 'id'
-        }
-    },
-    home_team_goals: {
+    homeTeam: {
         type: INTEGER,
         allowNull: false,
     },
-    away_team: {
-        type: INTEGER,
-        allowNull: false,
-        references: {
-            model: 'teams',
-            key: 'id'
-        }
-    },
-    away_team_goals: {
+    homeTeamGoals: {
         type: INTEGER,
         allowNull: false,
     },
-    in_progress: {
+    awayTeam: {
         type: INTEGER,
         allowNull: false,
+    },
+    awayTeamGoals: {
+        type: INTEGER,
+        allowNull: false,
+    },
+    inProgress: {
+        type: INTEGER,
+        allowNull: false,
+        defaultValue: 0,
     },
 }, {
     underscored: true,
@@ -54,7 +46,9 @@ Matches.init({
     timestamps: false,
 });
 
-Matches.belongsTo(Teams, { foreignKey: 'home_team', as: 'home_team'});
-Matches.belongsTo(Teams, { foreignKey: 'away_team', as: 'away_team'});
+Matches.belongsTo(Teams, { foreignKey: 'homeTeam', as: 'teamHome'});
+Matches.belongsTo(Teams, { foreignKey: 'awayTeam', as: 'teamAway'});
+Teams.hasMany(Matches, { foreignKey: 'homeTeam', as: 'homeMatch' });
+Teams.hasMany(Matches, { foreignKey: 'awayTeam', as: 'awayMatch' });
 
 export default Matches;
