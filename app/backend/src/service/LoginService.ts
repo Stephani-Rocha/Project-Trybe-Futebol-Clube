@@ -1,4 +1,4 @@
-import UserModel from '../database/models/Users';
+import UserModel from '../database/models/c-Users';
 import IToken from '../interfaces/IToken';
 import 'dotenv/config';
 import * as jwt from 'jsonwebtoken';

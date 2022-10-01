@@ -1,4 +1,4 @@
-import TeamsModel from '../database/models/Teams';
+import TeamsModel from '../database/models/a-Teams';
 
 class TeamsService {
     model = TeamsModel;
