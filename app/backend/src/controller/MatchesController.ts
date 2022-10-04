@@ -32,6 +32,20 @@ class MatchesController {
         if(!result) return res.status(400).json({ message: 'Erro ao fazer atualização' });
         return res.status(200).json({ message: 'Finished' })
     }
+
+    updateMatcheInProgress = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const { homeTeamGoals, awayTeamGoals } = req.body;
+
+        const data = {
+            id,
+            homeTeamGoals,
+            awayTeamGoals,
+        }
+
+        const result = await this.matchesService.updateMatcheInProgress(data);
+        return res.status(200).json(result);
+    }
 }
 
 export default MatchesController;

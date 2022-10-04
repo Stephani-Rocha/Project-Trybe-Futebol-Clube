@@ -43,6 +43,19 @@ class MatchesService {
       const result = await MatchesModel.update({ inProgress: false }, { where: { id }})
       return result;
     }
+
+    updateMatcheInProgress = async (data: any) => {
+      const { homeTeamGoals, awayTeamGoals, id } = data
+      const result = await MatchesModel.update({
+        homeTeamGoals,
+        awayTeamGoals,
+      },
+        {
+          where: { id }
+        })
+
+        return result;
+    }
 }
 
 export default MatchesService;

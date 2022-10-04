@@ -37,6 +37,8 @@ class App {
     matchesController.createMatche);
     
     this.app.patch('/matches/:id/finish', matchesController.updateMatche);
+
+    this.app.patch('/matches/:id', matchesController.updateMatcheInProgress)
   }
 
   private config():void {
