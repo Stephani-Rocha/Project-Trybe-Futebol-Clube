@@ -1,9 +1,9 @@
 import MatchesModel from '../database/models/b-Matches';
 import TeamsModel from '../database/models/a-Teams';
 import IMatche from '../interfaces/IMatche';
-
 class MatchesService {
     model = MatchesModel;
+    teamsModel = TeamsModel;
 
     getMatches = async () => {
         const result = await MatchesModel.findAll({
@@ -25,6 +25,7 @@ class MatchesService {
     
     createMatche = async (body: IMatche): Promise<IMatche | null> => {
       const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = body;
+
       if(inProgress !== true) {
         return null;
       }
