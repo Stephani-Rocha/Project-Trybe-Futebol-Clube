@@ -6,6 +6,7 @@ import TeamsController from './controller/TeamsController';
 import TeamsService from './service/TeamsService';
 import MatchesService from './service/MatchesService';
 import MatchesController from './controller/MatchesController';
+import MatcheValidation from './middleware/MatcheValidate';
 
 const loginService = new LoginService;
 const loginController = new LoginController(loginService);
@@ -14,6 +15,7 @@ const teamsService = new TeamsService;
 const teamsController = new TeamsController(teamsService);
 const matchesService = new MatchesService;
 const matchesController = new MatchesController(matchesService);
+const matcheValidation = new MatcheValidation;
 class App {
   public app: express.Express;
 
@@ -31,7 +33,7 @@ class App {
     this.app.get('/teams', teamsController.getController)
     this.app.get('/teams/:id', teamsController.getById)
     this.app.get('/matches', matchesController.getMatches)
-    this.app.post('/matches', matchesController.createMatche);
+    this.app.post('/matches', matcheValidation.verifyTeams, matchesController.createMatche);
     this.app.patch('/matches/:id/finish', matchesController.updateMatche);
   }
 
