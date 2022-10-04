@@ -1,5 +1,6 @@
 import MatchesModel from '../database/models/b-Matches';
 import TeamsModel from '../database/models/a-Teams';
+import IMatche from '../interfaces/IMatche';
 
 class MatchesService {
     model = MatchesModel;
@@ -21,6 +22,21 @@ class MatchesService {
         });
         return result;
       };
+    
+    createMatche = async (body: IMatche): Promise<IMatche | null> => {
+      const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = body;
+      if(inProgress !== true) {
+        return null;
+      }
+      const result = await MatchesModel.create({
+        homeTeam,
+        awayTeam,
+        homeTeamGoals,
+        awayTeamGoals,
+        inProgress,
+      })
+      return result as unknown as IMatche;
+    }  
 }
 
 export default MatchesService;
