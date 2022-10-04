@@ -22,6 +22,13 @@ class MatchesController {
         if(!result) return res.status(400).json({ messagem: 'erro ao criar time'})
         return res.status(201).json(result);
     }
+
+    updateMatche = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const result = await this.matchesService.updateMatche(id);
+        if(!result) return res.status(400).json({ message: 'Erro ao fazer atualização' });
+        return res.status(200).json({ message: 'Finished' })
+    }
 }
 
 export default MatchesController;

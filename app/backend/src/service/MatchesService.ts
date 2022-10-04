@@ -36,7 +36,12 @@ class MatchesService {
         inProgress,
       })
       return result as unknown as IMatche;
-    }  
+    } 
+
+    updateMatche = async (id: string) => {
+      const result = await MatchesModel.update({ inProgress: false }, { where: { id }})
+      return result;
+    }
 }
 
 export default MatchesService;
