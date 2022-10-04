@@ -15,9 +15,12 @@ class MatchesController {
     createMatche = async (req:Request, res: Response) => {
         const { body } = req;
         const { authorization } = req.headers;
+        try {
+            jwt.verify(authorization as string, JWT_SECRET);
+        } catch (error) {
+            return res.status(401).json({ message: 'Token must be a valid token' });
+          }
 
-        const verifyToken = jwt.verify(authorization as unknown as string, JWT_SECRET) as any;
-        if(!verifyToken) return res.status(400).json({ messagem: 'Token inválido'})
         const result = await this.matchesService.createMatche(body);
         if(!result) return res.status(400).json({ messagem: 'erro ao criar time'})
         return res.status(201).json(result);
