@@ -55,7 +55,7 @@ class MatchesService {
         })
 
         return result;
-    }
+    }    
 }
 
 export default MatchesService;

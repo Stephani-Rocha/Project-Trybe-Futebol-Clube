@@ -7,6 +7,9 @@ import TeamsService from './service/TeamsService';
 import MatchesService from './service/MatchesService';
 import MatchesController from './controller/MatchesController';
 import MatcheValidation from './middleware/MatcheValidate';
+import LeaderBoardService from './service/LeaderboardService';
+import LeaderBoardController from './controller/LeaderboardController';
+
 
 const loginService = new LoginService;
 const loginController = new LoginController(loginService);
@@ -16,6 +19,9 @@ const teamsController = new TeamsController(teamsService);
 const matchesService = new MatchesService;
 const matchesController = new MatchesController(matchesService);
 const matcheValidation = new MatcheValidation;
+const leaderboardService = new LeaderBoardService;
+const leaderboardController = new LeaderBoardController(leaderboardService);
+
 class App {
   public app: express.Express;
 
@@ -38,7 +44,9 @@ class App {
     
     this.app.patch('/matches/:id/finish', matchesController.updateMatche);
 
-    this.app.patch('/matches/:id', matchesController.updateMatcheInProgress)
+    this.app.patch('/matches/:id', matchesController.updateMatcheInProgress);
+
+    this.app.get('/leaderboard/home', leaderboardController.get);
   }
 
   private config():void {
